@@ -13,7 +13,7 @@ func twoSum(x int, y int) int {
 	return x + y
 }
 
-func main() {
+func prac1() {
 	fmt.Println("ok")
 	fmt.Println(twoSum(1, 2))
 	fmt.Println(spilit(10))
