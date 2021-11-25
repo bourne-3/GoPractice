@@ -3,7 +3,31 @@ package main
 import (
 	"fmt"
 	"math"
+	"runtime"
 )
+
+func tryDefer() {
+	//defer fmt.Println("word")
+	//fmt.Print("hello ")
+
+	// 多个defer 就是一个入栈的过程
+	for i := 0; i < 5; i++ {
+		defer fmt.Println("defer是入栈，我现在是:",i)
+	}
+	fmt.Println("开始入栈")
+}
+
+
+func trySwitch()  {
+	switch os := runtime.GOOS; os{
+	case "linux":
+		fmt.Println("runing in linux")
+	case "darwin":
+		fmt.Println("on darwin")
+	default:
+		fmt.Println(os)
+	}
+}
 
 func isEqual(num int) bool {
 	if num == 15 {
