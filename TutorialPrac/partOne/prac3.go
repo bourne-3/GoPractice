@@ -17,7 +17,6 @@ func tryMap() {
 
 func tryRange() {
 	// 有三种方法可以创建slice
-	//
 	pow := []int{1, 2, 4, 8, 16, 32, 64, 128}  // way1
 	//var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}  // way2
 
