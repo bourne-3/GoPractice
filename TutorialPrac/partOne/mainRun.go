@@ -11,5 +11,7 @@ func main() {
 	//===
 	//pointer1()
 	//tryStructs()
-	tryArray()
+	//tryArray()
+	trySlice()
+
 }
