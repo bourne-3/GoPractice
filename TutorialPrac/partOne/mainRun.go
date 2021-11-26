@@ -12,6 +12,7 @@ func main() {
 	//pointer1()
 	//tryStructs()
 	//tryArray()
-	trySlice()
-
+	//trySlice()
+	//tryMake()
+	tryRange()
 }

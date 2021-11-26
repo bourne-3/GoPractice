@@ -1,11 +1,92 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // structs
 type Vertex struct {
 	X int
 	y int
+}
+
+func tryMap() {
+
+}
+
+func tryRange() {
+	// 有三种方法可以创建slice
+	pow := []int{1, 2, 4, 8, 16, 32, 64, 128}  // way1
+	//var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}  // way2
+
+	// way3
+	//var pow []int
+	//pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+
+	printSlice(pow)
+
+	// 使用range  // 类似于python中的enumerate 以及增强for循环
+	for i, val := range pow{
+		fmt.Print(i, val, "  ||  ")
+	}
+	fmt.Println()
+	// ==============
+	// 可以省略前半部分以及后半部分
+	fmt.Println("================")
+	nums := make([]int, 10)
+	printSlice(nums)
+
+	for idx, _ := range nums{
+		fmt.Print(idx, " ")
+		nums[idx] = 1 << idx  // 2 ^ idx
+	}
+	fmt.Println()
+
+	for _, val := range  nums{
+		fmt.Print(val, " ")
+	}
+	fmt.Println()
+
+}
+
+func tryMake() {
+	//nums := make([]int, 3)
+	//printSlice(nums)
+
+	nums2 := make([]int, 0, 5) // first is len, second is cap
+	printSlice(nums2)
+
+	nums3 := nums2[:2]
+	printSlice(nums3)
+
+	//nums4 := nums3[2:]
+	nums4 := nums3[2:5]
+	printSlice(nums4)
+
+	matrix1 := [][]string{
+		[]string{"_", "_", "_"},
+		[]string{"_", "_", "_"},
+		[]string{"_", "_", "_"},
+	}
+
+	matrix1[0][0] = "X"
+	matrix1[len(matrix1)-1][len(matrix1[0])-1] = "O"
+	//fmt.Println(len(matrix1), len(matrix1[0]))
+
+	for i := 0; i < len(matrix1); i++ {
+		fmt.Printf("%s\n", strings.Join(matrix1[i], " "))
+	}
+
+	//==================
+	// append
+	var t2 []int
+	fmt.Println(t2)
+	t2 = append(t2, 1)
+	printSlice(t2)
+	t2 = append(t2, 2, 3, 4, 5)
+	fmt.Println(t2)
+	printSlice(t2)
 }
 
 func trySlice() {
@@ -20,24 +101,23 @@ func trySlice() {
 	n2 := name[1:]
 	fmt.Println(n1, n2)
 
-	n1[2] = "bourne"  // 切片是一个引用 不存储值
+	n1[2] = "bourne" // 切片是一个引用 不存储值
 	fmt.Println(n1, n2)
 
-
 	// slice literals  ||  其实literals就是分配内存加上初始化而已
-	q := []int {11, 12, 13}  // creates the  array , then builds a slice that references it:
-	fmt.Println(q)  // 注意这里的q仍然是一个slice
+	q := []int{11, 12, 13} // creates the  array , then builds a slice that references it:
+	fmt.Println(q)         // 注意这里的q仍然是一个slice
 
 	// 必须有两个{}
 	s1 := struct {
-		id int
+		id   int
 		name string
 	}{20201050008, "borune"}
 	fmt.Println(s1)
 
 	// struct切片
 	s2 := []struct {
-		pid int
+		pid   int
 		pName string
 	}{
 		{1, "iphone"},
@@ -47,27 +127,50 @@ func trySlice() {
 	fmt.Println(s2)
 
 	// ==========
+	// 不断在新的切片上操作
 	fmt.Println("=================")
 	nums := []int{2, 3, 5, 7, 11, 13}
-	nums = nums[1:4]
+	nums = nums[:0] // 3个
 	fmt.Println(nums)
 
+	nums = nums[:2]
+	fmt.Println(nums) // 3 5
+
+	nums = nums[2:]
+	fmt.Println(nums) // []
+
+	// ================
+	fmt.Println("==============")
+	s := []int{2, 3, 5, 7, 11, 13}
+	printSlice(s)
+	s = s[:1]
+	printSlice(s)
+	s = s[:4]
+	printSlice(s)
+	s = s[2:] // drop the first two values
+	printSlice(s)
+
+	// ================= nil
+	var t1 []int
+	fmt.Println(t1)
+	if t1 == nil {
+		fmt.Println("nil ")
+	}
 
 }
 
 func tryArray() {
-	var a [2]int  // 先数量再类型
+	var a [2]int // 先数量再类型
 	a[0] = 21
 	a[1] = 22
 	fmt.Println(a)
 
-	s1  := [3]string{"bourne", "lucy", "kim"}
+	s1 := [3]string{"bourne", "lucy", "kim"}
 	fmt.Println(s1)
 
 	// 使用slice
-	slice1 := s1[:2]  // [low:hight] default 0 or len()
+	slice1 := s1[:2] // [low:hight] default 0 or len()
 	fmt.Println(slice1)
-
 
 }
 
@@ -80,20 +183,21 @@ func tryStructs() {
 	// 指针结合struct
 	v3 := Vertex{13, 32}
 	p := &v3
-	p.X = 31  // 使用指针修改struct的内容  without the explicit dereference.
+	p.X = 31 // 使用指针修改struct的内容  without the explicit dereference.
 	fmt.Println(*p, v3, p)
 
-
 }
-
+func printSlice(s []int) {
+	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+}
 
 // 指针
 func pointer1() {
-	var p *int  // 指针
+	var p *int // 指针
 	i := 15
 	p = &i
-	fmt.Println("这是一个地址", p)  // 这是一个地址
+	fmt.Println("这是一个地址", p) // 这是一个地址
 	fmt.Println("具体的值", *p)  // 具体的值
 	*p = 31
-	fmt.Println("*p = 31之后：", *p)  // 具体的值
+	fmt.Println("*p = 31之后：", *p) // 具体的值
 }
