@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strings"
 )
 
@@ -13,6 +14,39 @@ type Vertex struct {
 
 type Record struct {
 	Salary, cost float64
+}
+
+func adder() func(int) int {
+	sum := 0  // 这个sum会被记忆
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+}
+
+func compute(fn func(float64, float64) float64) float64{
+	// 注意，这里传入的参数是一个函数， 返回值是 float64
+	return fn(3, 4)
+}
+
+func tryFunctionVal()  {
+	hypot := func(x, y float64) float64{
+		return math.Sqrt(x * x + y * y)
+	}
+	val := compute(hypot)  // 传入了hypot是一个函数，等会在compute中调用了fn(3, 4)，会回来hypot执行
+	fmt.Println(val)
+	fmt.Println(hypot(3, 4))  // 看是否一样
+
+	// 传入其他函数
+	val2 := compute(math.Pow)
+	fmt.Println(val2)
+
+
+	//======================
+	// 闭包
+	f1 := adder()
+	fmt.Println(f1(1))
+	fmt.Println(f1(1))
 }
 
 func tryMap() {

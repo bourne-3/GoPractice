@@ -12,3 +12,7 @@
   - The default is zero for the low bound and the length of the slice for the high bound.
     - 注意这里的high bound 是切片的len，而已这个len是可变的
     - 具体参考 nums3[2:] 以及 nums3[2:5]这两个的区别 （此时nums3的长度为2）
+- Function values
+  - 函数也可以充当参数进行传递。既可以作为参数，也可以作为返回值
+    - Function values may be used as function arguments and return values.
+  - 
