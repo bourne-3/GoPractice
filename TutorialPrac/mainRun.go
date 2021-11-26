@@ -5,6 +5,10 @@ func main() {
 	//prac1()
 	//prac2()
 	//h1();
-	trySwitch()
-	tryDefer()
+	//trySwitch()
+	//tryDefer()
+
+	//===
+	//pointer1()
+	tryStructs()
 }
