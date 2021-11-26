@@ -10,5 +10,6 @@ func main() {
 
 	//===
 	//pointer1()
-	tryStructs()
+	//tryStructs()
+	tryArray()
 }
