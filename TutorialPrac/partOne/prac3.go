@@ -11,8 +11,34 @@ type Vertex struct {
 	y int
 }
 
-func tryMap() {
+type Record struct {
+	Salary, cost float64
+}
 
+func tryMap() {
+	m1 := make(map[string]int)
+	m1["lucy"] = 100
+	m1["bourne"] = 400
+	m1["kim"] = 200
+	fmt.Println(m1)
+
+	m2 := make(map[string]Record)
+	m2["member1"] = Record{12500, 400}
+	fmt.Println(m2["member1"])
+
+	// map literals
+	m3 := map[string]Record{
+		"member1" : {40000, 100},
+		"member2" : {30000, 200},
+	}
+	fmt.Println(m3["member1"])
+
+	// 判断是否存在， 这里和python里面的拆包还不大一样
+	content, isExist := m3["member2"]
+	fmt.Println(content, isExist)
+
+	c2, ex := m3["random"]
+	fmt.Println(c2, ex)
 }
 
 func tryRange() {

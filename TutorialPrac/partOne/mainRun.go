@@ -14,5 +14,6 @@ func main() {
 	//tryArray()
 	//trySlice()
 	//tryMake()
-	tryRange()
+	//tryRange()
+	tryMap()
 }
