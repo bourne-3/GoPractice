@@ -15,6 +15,7 @@ func (v Vertex) tryMethod() float64{
 
 
 
+
 // pointer receiver
 func (v *Vertex) scale()  {
 	// 动态变化这个v里面的值
@@ -26,7 +27,6 @@ func (v *Vertex) scale()  {
 func (customF MyFloat) tryMethod() float64 {
 	return float64(customF + 10)
 }
-
 
 
 func Method2(v Vertex) float64 {

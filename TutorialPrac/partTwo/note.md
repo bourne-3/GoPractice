@@ -4,7 +4,9 @@
   - 注意这里是between
   - Remember: a method is just a function with a receiver argument.
   - You can only declare a method with a receiver whose type is defined in the same package as the method.
-- pointer receiver （指针receiver）
+- pointer receiver （指针receiver） （下面是为什么要使用）
   - The first is so that the method can modify the value that its receiver points to.
   - The second is to avoid copying the value on each method call. 
+- 是用方法的时候会自动适应参数（方法调用）
+  - As a convenience, Go interprets the statement v.Scale(5) as (&v).Scale(5) since the Scale method has a pointer receiver.
 - 
