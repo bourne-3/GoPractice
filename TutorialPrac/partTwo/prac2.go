@@ -48,6 +48,9 @@ func (v *Vertex2) Abs() float64 {
 func describe(i I) {
 	fmt.Printf("(%v, %T)\n", i, i)
 }
+func describe2(i interface{}) {
+	fmt.Printf("(%v, %T)\n", i, i)
+}
 
 func run2() {
 	var i Abser
@@ -70,9 +73,23 @@ func run2() {
 	i2.M()  // 有点像多态的调用
 
 	// =======
-	// 第四个 接口接收了初始化的val
+	// 第四个 接口接收了未初始化的val
 	var t2 *T
 	i2 = t2
 	describe(i2)
 	i2.M()
+
+	// 第五个 接口为未初始化
+	var i3 I
+	describe(i3)
+	//i3.M()  // 会报错 因为没有具体实现
+
+	// 第六个 空接口  empty interface
+	var i4 interface{}
+	describe2(i4)
+	i4 = 45
+	describe2(i4)
+	i4 = "Hello"
+	describe2(i4)
+
 }
