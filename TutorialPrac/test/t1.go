@@ -11,6 +11,18 @@ func getSeq() func() int{
 	}
 }
 
+func init() {
+	fmt.Println("init函数被调用3")
+}
+
+func init() {
+	fmt.Println("init函数被调用1")
+}
+
+func init() {
+	fmt.Println("init函数被调用2")
+}
+
 func main() {
 	// 使用闭包
 	nextNum := getSeq()  // 这里的返回值是一个函数
