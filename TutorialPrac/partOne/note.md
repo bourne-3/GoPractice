@@ -1,5 +1,12 @@
 记录重要的知识点
 
+### part1
+- Go有两个很重要的环境变量GOROOT和GOPATH,这是两个定义路径的环境变量，GOROOT是安装Go的路径，比如/usr/local/go；GOPATH是我们自己定义的开发者个人的工作空间，比如/home/flysnow/go。
+- 对于包的查找，是有优先级的，编译器会优先在GOROOT里搜索，其次是GOPATH,一旦找到，就会马上停止搜索
+  - go get工具可以递归获取依赖包，如果github.com/spf13/cobra也引用了其他的远程包，该工具可以一并下载下来。
+  - 今天在复习的时候，解决了昨天的问题，就是go get一直下载不下来的问题。原来是GOPATH没有配置好导致的
+
+
 ### part3
 - Slices are like references to arrays 
   - A slice does not store any data, it just describes a section of an underlying array.

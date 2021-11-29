@@ -5,5 +5,6 @@ func main() {
 	//run2()
 	//tryAssert()
 	//trySwitchAssert()
-	runRest()
+	//runRest()
+	tryReader()
 }

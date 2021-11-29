@@ -18,3 +18,5 @@
 - 未初始化的两个情况
   - Interface values with nil underlying values
   - Nil interface values （这个会报错）
+- 空接口
+  - Empty interfaces are used by code that handles values of unknown

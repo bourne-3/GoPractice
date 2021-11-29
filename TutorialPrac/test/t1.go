@@ -1,7 +1,6 @@
 package main
 
 import "fmt"
-
 // 这是一个闭包
 func getSeq() func() int{
 	i := 0

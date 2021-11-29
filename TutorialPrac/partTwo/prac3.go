@@ -1,8 +1,47 @@
 package main
 // the rest
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+	"strings"
+	"time"
+)
 
+
+
+// io.Reader
+func tryReader() {
+	r := strings.NewReader("Hello,world")
+	b := make([]byte, 4)
+	fmt.Println(b)
+	for  {
+		n, err := r.Read(b)
+		fmt.Printf("n = %v err = %v b = %v\n", n, err, b)
+		fmt.Printf("b[:n] = %q\n", b[:n])
+		if err == io.EOF {
+			break
+		}
+	}
+
+}
+
+
+
+// error接口
+type MyError struct {
+	When time.Time
+	What string
+}
+
+func (e MyError) Error() string {
+	return fmt.Sprintf("at %v, %s",
+		e.When, e.What)
+}
+
+func getError() error{  // 接口作为返回值
+	return &MyError{time.Now(), "Error happen"}
+}
 
 type Person struct {
 	id int
@@ -15,8 +54,12 @@ func (p Person) String() string {
 }
 
 func runRest() {
-	p := Person{id:18, name:"kobe"}
-	fmt.Println(p)
+	//p := Person{id:18, name:"kobe"}
+	//fmt.Println(p)
+	if error := getError(); error != nil {
+		fmt.Println(error)
+	}
+
 }
 
 func do(i interface{})  {
