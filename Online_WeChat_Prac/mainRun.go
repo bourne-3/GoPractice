@@ -8,6 +8,6 @@ func main() {
 	//run5()
 	//run6()
 	//run7()
-	run8()  // Visible
-
+	//run8()  // Visible
+	run9() // goroutine
 }
