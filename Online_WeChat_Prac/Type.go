@@ -36,7 +36,12 @@ func run4() {
 
 	// 自定义类型  （基于已有的类型创建现有的类型
 	type Duration int64
+	var d Duration  // way1
+	d = 13
+	fmt.Println(d)
 
+	d2 := Duration(31)  // way2
+	fmt.Println(d2)
 }
 
 func modifyConstructP(o *orders) {
