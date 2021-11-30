@@ -6,5 +6,6 @@ func main() {
 	//run3()
 	//run4()
 	//run5()
-	run6()
+	//run6()
+	run7()
 }
