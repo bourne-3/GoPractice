@@ -13,5 +13,6 @@ func main() {
 	//expRun()
 	//runExpPool()
 
-	run10()  // rwLock
+	//run10()  // rwLock
+	run11()  // Log
 }
