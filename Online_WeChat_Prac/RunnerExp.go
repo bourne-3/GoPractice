@@ -35,6 +35,8 @@ func (r *Runner) Add(taks... func(int)) {
 
 // 方法 执行任务
 func (r *Runner) run() error{
+	log.Println("开始执行任务了哦！")
+
 	// 取出任务
 	for id,task := range r.tasks{
 		if r.isInterrupt(){
@@ -74,7 +76,7 @@ func (r *Runner) Start() error{
 
 func expRun() {
 	log.Println("..开始执行任务..")
-	timeout := 4 * time.Second
+	timeout := 2 * time.Second
 	r := New(timeout)
 
 	// 添加任务

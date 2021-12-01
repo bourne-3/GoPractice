@@ -11,5 +11,7 @@ func main() {
 	//run8()  // Visible
 	//run9() // goroutine
 	//expRun()
-	runExpPool()
+	//runExpPool()
+
+	run10()  // rwLock
 }
