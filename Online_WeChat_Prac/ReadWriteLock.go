@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
 	"sync"
@@ -11,6 +12,64 @@ var (
 	lock sync.RWMutex
 	wg sync.WaitGroup
 )
+
+
+// 自己写一个SynchronizedMap
+type synchronizedMap struct {
+	m *sync.RWMutex
+	data map[interface{}]interface{}
+}
+
+// CRUD and Each
+// add
+func (s *synchronizedMap) add(k interface{}, v interface{}) {
+	s.m.Lock()
+	defer s.m.Unlock()
+	s.data[k] = v
+}
+
+// delete
+func (s *synchronizedMap) delete(k interface{}) {
+	s.m.Lock()
+	defer s.m.Unlock()
+	delete(s.data, k)
+}
+
+// modify
+func (s *synchronizedMap) modify(k interface{}, v interface{}) {
+	s.m.Lock()
+	defer s.m.Unlock()
+	s.data[k] = v
+}
+
+// get
+func (s *synchronizedMap) get(k interface{})  interface{}{
+	s.m.RLock()
+	defer s.m.RUnlock()
+	v := s.data[k]
+	return v
+}
+
+// each
+func (s *synchronizedMap) each(fn func(interface{}, interface{}))  {
+	s.m.RLock()
+	defer s.m.RUnlock()
+	for k, v := range s.data {
+		fn(k, v)
+	}
+}
+
+// 初始化一个synchronizedMap
+func newSynchronizedMap() *synchronizedMap {
+	return &synchronizedMap{
+		m:new(sync.RWMutex),
+		data:make(map[interface{}]interface{}),
+	}
+}
+
+func test(data map[interface{}]interface{}) {
+	fmt.Println(data)
+}
 
 func run10() {
 	// 读写锁
@@ -24,6 +83,15 @@ func run10() {
 		go write(i)
 	}
 	wg.Wait()
+
+	//==============
+	//实验synchronized
+	syMap := newSynchronizedMap()
+	syMap.add(10, 20)
+	// 这里使用了回调函数  重要
+	syMap.each(func(k interface{}, v interface{}) {
+		fmt.Println(k, " is ", v)
+	})
 }
 
 func read(i int)  {
