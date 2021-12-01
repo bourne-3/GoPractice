@@ -83,6 +83,7 @@ const(
 	poolRes = 2
 )
 
+// 主要的main运行文件这里
 func runExpPool() {
 	var w sync.WaitGroup
 	w.Add(maxGoroutine)
