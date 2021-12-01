@@ -14,5 +14,6 @@ func main() {
 	//runExpPool()
 
 	//run10()  // rwLock
-	run11()  // Log
+	//run11()  // Log
+	run12() // Writer and Reader
 }
