@@ -15,5 +15,6 @@ func main() {
 
 	//run10()  // rwLock
 	//run11()  // Log
-	run12() // Writer and Reader
+	//run12() // Writer and Reader
+	run13()  // GoContext
 }
