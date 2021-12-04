@@ -17,6 +17,7 @@ func main() {
 	//run11()  // Log
 	//run12() // Writer and Reader
 	//run13()  // GoContext
-	run14()  // reflect
+	//run14()  // reflect
+	run15()  // tag
 
 }
