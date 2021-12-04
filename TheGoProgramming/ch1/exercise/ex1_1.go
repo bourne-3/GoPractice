@@ -24,5 +24,4 @@ func ex2() {
 
 func ex3() {
 	//TODO 验证join和拼接方式在runtime下的效率差异
-
 }
