@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"math"
 	"strings"
+	"unicode/utf8"
 )
 
 func echo() {
@@ -51,9 +53,56 @@ func f1() int{
 	return c + 1
 }
 
+func f2() {
+	o := 0666
+	fmt.Printf("%d %[1]o", o)
+
+	ascii := 'a'
+	unicode := '国'
+	newline := '\n'
+	fmt.Printf("%d %[1]c %[1]q\n", ascii)   // "97 a 'a'"
+	fmt.Printf("%d %[1]c %[1]q\n", unicode) // "22269 国 '国'"
+	fmt.Printf("%d %[1]q\n", newline)  // %q是作用？
+	for x := 0; x < 8; x++ {
+		fmt.Printf("x = %d e^x = %8.3f\n", x, math.Exp(float64(x)))  // 8.3。 8表示缩进 3表示保留小数位
+	}
+}
+
+func f3String() {
+	s := "Hello world"
+	fmt.Println(len(s))
+	fmt.Println(s[0], s[7])  // 77 111
+
+	s2 := `这是一个原生的字面量
+还可以换行处理 。 \n等转义字符都不可以用了`
+	fmt.Println(s2)
+
+	s3 := "hello,世界"  // 8个字符 但是len()为12  因为包含了中文
+	s4 := "hello,world"  // 11个字符
+	fmt.Println(len(s3), len(s4))
+	fmt.Println(utf8.RuneCountInString(s3))  // 这样就可以获得真正包含的字符数了
+	fmt.Println("=============")
+
+	for i := 0; i < len(s3); {
+		r, size := utf8.DecodeRuneInString(s3[i:])
+		fmt.Printf("%d\t%c\n", i, r)
+		i += size
+	}
+
+	fmt.Println("===========")
+
+	// "program" in Japanese katakana
+	//s = "プログラム"
+	s = "你好中国"
+	fmt.Printf("% x\n", s) // "e3 83 97 e3 83 ad e3 82 b0 e3 83 a9 e3 83 a0"
+	r := []rune(s)
+	fmt.Printf("%x\n", r)  // "[30d7 30ed 30b0 30e9 30e0]"
+}
 
 func pkgInit() {
 	fmt.Println(a , b, c)
+	//f2()
+	f3String()
 }
 
 func runCompare() {
@@ -71,6 +120,8 @@ func runCompare() {
 
 	//fmt.Println(c == f)  // error 不同的underlying
 	fmt.Println(c == Celsius(f))  // 这是类型转换，不是函数调用
+
+	fmt.Println("=============")
 }
 
 func runHelper() {
