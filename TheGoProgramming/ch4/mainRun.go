@@ -202,5 +202,7 @@ func main() {
 	//helper4()
 
 	//dedup()
-	tryMap()
+	//tryMap()
+
+	runStruct()
 }

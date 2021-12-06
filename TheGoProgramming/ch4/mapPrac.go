@@ -3,8 +3,11 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"sort"
+	"unicode"
+	"unicode/utf8"
 )
 
 func dedup() {
@@ -77,6 +80,7 @@ func tryMap() {
 	fmt.Println(set)
 
 	// 7 当要求map的key是一个切片的时候，需要如何处理
+	charCount()
 
 }
 
@@ -112,4 +116,58 @@ func isEqual(a, b map[string]int) bool {
 		}
 	}
 	return true
+}
+
+// 8 charcount
+func charCount() {
+	counts := make(map[rune]int)    // counts of Unicode characters
+	var utflen [utf8.UTFMax + 1]int // count of lengths of UTF-8 encodings
+	invalid := 0                    // count of invalid UTF-8 characters
+
+	in := bufio.NewReader(os.Stdin)
+	for {
+		r, n, err := in.ReadRune() // returns rune, nbytes, error
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "charcount: %v\n", err)
+			os.Exit(1)
+		}
+		if r == unicode.ReplacementChar && n == 1 {
+			invalid++
+			continue
+		}
+		counts[r]++
+		utflen[n]++
+	}
+	fmt.Printf("rune\tcount\n")
+	for c, n := range counts {
+		fmt.Printf("%q\t%d\n", c, n)
+	}
+	fmt.Print("\nlen\tcount\n")
+	for i, n := range utflen {
+		if i > 0 {
+			fmt.Printf("%d\t%d\n", i, n)
+		}
+	}
+	if invalid > 0 {
+		fmt.Printf("\n%d invalid UTF-8 characters\n", invalid)
+	}
+}
+
+
+var graph = make(map[string]map[string]bool)  // k:string  v:map
+
+func addEdge(from, to string) {
+	edges := graph[from]
+	if edges == nil {
+		edges = make(map[string]bool)
+		graph[from] = edges
+	}
+	edges[to] = true
+}
+
+func hasEdge(from, to string) bool {
+	return graph[from][to]
 }
