@@ -206,4 +206,5 @@ func main() {
 
 	//runStruct()
 	movie()
+	//tryJSON()
 }
