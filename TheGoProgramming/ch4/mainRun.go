@@ -204,5 +204,6 @@ func main() {
 	//dedup()
 	//tryMap()
 
-	runStruct()
+	//runStruct()
+	movie()
 }
