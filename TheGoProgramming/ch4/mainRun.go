@@ -205,6 +205,8 @@ func main() {
 	//tryMap()
 
 	//runStruct()
-	movie()
+	//movie()
 	//tryJSON()
+
+	runGithub()
 }
