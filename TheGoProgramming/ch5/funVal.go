@@ -13,6 +13,23 @@ func negative(n int) int   { return -n }
 func product(m, n int) int { return m * n }
 func add1(r rune) rune     { return r + 1 }
 
+func double(x int)(result int) {
+	// 使用defer和匿名函数可以拿到返回值
+	defer func() {fmt.Printf("double(%d) = %d\n", x, result)}()
+	return x + x
+}
+
+func defer1(x int) {
+	fmt.Printf("f(%d)\n", x+0/x) // panics if x == 0
+	defer fmt.Printf("defer %d\n", x)
+	defer1(x - 1)  // 递归调用
+}
+
+func helperRun() {
+	double(3)
+	defer1(3)
+}
+
 func m2(vals ...int) int {
 	// 1 可变参数
 	total := 0

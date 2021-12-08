@@ -6,5 +6,6 @@ func main() {
 	//funV2()
 
 	//fmt.Println(m2(3,2,1))
-	m3()
+	//m3()
+	helperRun()
 }
