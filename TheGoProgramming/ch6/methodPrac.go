@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"image/color"
 	"math"
 	"net/url"
+	"sync"
 )
 
 type Point struct {
@@ -84,4 +86,80 @@ func run2() {
 	m = nil
 	fmt.Println(m.Get("item"))
 	m.Add("item", "3")
+}
+
+type ColoredPorint struct {
+	Point  // 嵌入了Point
+	Color color.RGBA
+}
+
+// 还可以嵌入指针
+type ColoredPoint2 struct {
+	*Point
+	Color color.RGBA
+}
+
+// 当一个结构体有多个匿名內部struct
+type ColoredPoint3 struct {
+	Point
+	color.RGBA
+}
+
+func run3() {
+	// 1 嵌入结构体
+	var cp ColoredPorint
+	cp.X = 1  // 这个X是嵌入Point的内容
+	fmt.Println(cp.Point.X)
+	cp.Point.Y = 2
+	fmt.Println(cp.Y)
+
+	// 2 使用嵌入的结构体的方法
+	red := color.RGBA{255, 0, 0, 255}
+	blue := color.RGBA{0, 0, 255, 255}
+	var p = ColoredPorint{Point{1, 1}, red}
+	q := ColoredPorint{Point{5,4 }, blue}
+	//fmt.Println(p.Distance(q.Point))  // 传入的需要是q.Point
+	//fmt.Println(p.Distance(q))  // 单纯传入q是错的
+	p.ScaleBy(2)
+	q.ScaleBy(2)
+	fmt.Println(p.Distance(q.Point))
+
+	fmt.Println("===========")
+	// 3 嵌入指针
+	p2 := ColoredPoint2{&Point{1, 1},red}
+	q2 := ColoredPoint2{&Point{5,4}, blue}
+	fmt.Println(p2.Distance(*q2.Point))  // 这里主要使用 *q2.Point
+	q2.Point = p2.Point
+	fmt.Println(*p2.Point, *q2.Point)
+
+	fmt.Println("===========")
+
+}
+// 4 多个匿名内部结构体
+var (
+	mu sync.Mutex
+	mapping = make(map[string]string)
+)
+
+func Lookup1(key string) string {
+	mu.Lock()
+	v := mapping[key]
+	mu.Unlock()
+	return v
+}
+
+// 升级版本
+var cache = struct {
+	sync.Mutex  // 直接匿名嵌入
+	mapping map[string]string
+}{
+	mapping: make(map[string]string),
+}
+	// 现在这个cache就可以直接当作一个整体来使用了
+func Loopup2(key string) string {
+	// 这个cache里面就有很多玩意
+	cache.Lock()
+	v := cache.mapping[key]
+	cache.Unlock()
+	return v
 }
