@@ -96,5 +96,12 @@ func run2() {
 func main() {
 	//run1()
 	//run2()
-	m3()
+	//m3()
+
+	//SortRun1()
+	//SortRun2()
+	//handlerRun1()
+	handlerRun2()
+
+
 }
