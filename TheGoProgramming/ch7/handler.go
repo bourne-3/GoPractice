@@ -63,10 +63,10 @@ func (db database) price(w http.ResponseWriter, req *http.Request) {
 }
 
 
-//func handlerRun1() {
-//	db := database{"shoes":50, "socks":5}
-//log.Fatal(http.ListenAndServe("localhost:8000", db))
-//}
+func handlerRun1() {
+	//db := database{"shoes":50, "socks":5}
+	//log.Fatal(http.ListenAndServe("localhost:8000", db))
+}
 
 func handlerRun2() {
 	db := database{"shoes":50, "socks":5}
@@ -74,5 +74,13 @@ func handlerRun2() {
 	// 注意 http.HandlerFunc() 是一个类型转换，充当适配器
 	mux.Handle("/list", http.HandlerFunc(db.list))
 	mux.Handle("/price", http.HandlerFunc(db.price))  // 函数值
+
 	log.Fatal(http.ListenAndServe("localhost:8001", mux))
+}
+
+func handlerRun3() {
+	db := database{"shoes":50, "socks":5}
+	http.HandleFunc("/list", db.list)
+	http.HandleFunc("/price", db.price)
+	log.Fatal(http.ListenAndServe("localhost:8001", nil))
 }
