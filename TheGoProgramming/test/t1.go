@@ -10,8 +10,15 @@ import (
 
 func main() {
 	// 测试readALl
-	t2()
+	t3()
 }
+
+// 测试os.Stdin.Read(make([]byte, 1)) // read a single byte
+func t3() {
+	c, _ := os.Stdin.Read(make([]byte, 1)) // read a single byte
+	fmt.Println(c)
+}
+
 
 func t2() {
 	// 检验Buffer的write
